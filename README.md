@@ -38,3 +38,4 @@ geth_linux attach /data/bsc/.ethereum/geth.ipc
 ## More info
 
 [original BSC repo](https://github.com/binance-chain/bsc)
+
