@@ -6,7 +6,7 @@ RUN apt-get update -y \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ARG VERSION
+ENV VERSION=1.1.2
 
 RUN curl --silent "https://api.github.com/repos/binance-chain/bsc/releases/tags/v${VERSION}" | jq -c '.assets[] | select( .browser_download_url | contains("mainnet.zip") or contains("geth_linux")) | .browser_download_url' | xargs -n1 curl -LOJ && \
     unzip mainnet.zip -d / && \
@@ -14,6 +14,7 @@ RUN curl --silent "https://api.github.com/repos/binance-chain/bsc/releases/tags/
     sed -i '/^WSPort.*/a WSHost = "0.0.0.0"' /config.toml && \
     sed -i 's/^HTTPVirtualHosts.*/HTTPVirtualHosts = ["*"]/' /config.toml && \
     sed -i '/Node\.LogConfig/,/^$/d' /config.toml && \ 
+    sed -i 's/^HTTPModules.*/HTTPModules = ["debug","eth", "net", "web3", "txpool", "parlia", "admin"]/' /config.toml && \
     mv geth_linux /usr/local/bin/bsc && \
     chmod +x /usr/local/bin/bsc
 

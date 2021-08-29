@@ -1,0 +1,15 @@
+version: '3'
+services:
+  bsc-node:
+    container_name: bsc
+    image:  enes789/bsc:v1.1.2
+    restart: always
+    command: --cache 18000 --rpc.allow-unprotected-txs --txlookuplimit 0 
+    volumes:
+      - ./data/bsc:/root
+    ports:
+      - "8545:8545"
+      - "30311:30311"
+      - "30311:30311/udp"
+      - "8546:8546"
+      - "6060:6060"
