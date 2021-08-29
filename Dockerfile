@@ -39,3 +39,4 @@ EXPOSE 8546/tcp
 ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["bsc"]
+
